@@ -1,0 +1,71 @@
+<div class="l-navbar app-l-sidebar " id="nav-bar">
+	<nav class="nav-side">
+		<div>
+			<div class="nav_logo header_toggle" >
+				<div class="sidebar-logo" onclick="sideBarNavigationToggle()" (click)="toggleCollapse(false)">
+					<img class="cx-menu"  id="header-toggle" src="../../../../assets/images/logo-cp.png">
+				</div>
+				<div onclick="HideToggle()" (click)="toggleCollapse(true)">
+					<img class="fx-menu" id="sidenavelogo" src="../../../../assets/images/logo-xp.png">
+				</div>
+			</div>
+			<div class="nav_list" *ngIf="isCollapsed">
+				<a class="nav_link" placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/1.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/1-white.png" > <span class="nav_name">New Requests</span> </a>
+				<a class="nav_link" placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/2.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/2-white.png"> <span class="nav_name">Preparation</span> </a>
+				<a class="nav_link"  placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/6.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/6-white.png"> <span class="nav_name">In Escrow</span> </a>
+				<a class="nav_link" placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/5.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/5-white.png"> <span class="nav_name">Post COE</span> </a>
+				<a class="nav_link" placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/4.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/4-white.png"> <span class="nav_name">Wire Transfers</span> </a>
+				<a class="nav_link" placement="right"  triggers="mouseenter:mouseleave" container="body"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/3.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/3-white.png"> <span class="nav_name">Approvals</span> </a>
+				<!-- <a href="#" class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/6.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/6-white.png"> <span class="nav_name">Closing Occupancy</span> </a> -->
+				<a class="nav_link hideicons"  > <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/1.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/1-white.png"> <span class="nav_name">Create New Request </span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/7.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/7-white.png"> <span class="nav_name">Task Search</span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/3.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/3-white.png"> <span class="nav_name">Approvals</span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/5.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/5-white.png"> <span class="nav_name">Post COE</span> </a>
+			</div>
+			<div class="nav_list" *ngIf="!isCollapsed">
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/1.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/1-white.png" > <span class="nav_name">New Requests</span> </a>
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/2.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/2-white.png"> <span class="nav_name">Preparation</span> </a>
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/6.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/6-white.png"> <span class="nav_name">In Escrow</span> </a>
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/5.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/5-white.png"> <span class="nav_name">Post COE</span> </a>
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/4.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/4-white.png"> <span class="nav_name">Wire Transfers</span> </a>
+				<a class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/3.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/3-white.png"> <span class="nav_name">Approvals</span> </a>
+				<!-- <a href="#" class="nav_link"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/6.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/6-white.png"> <span class="nav_name">Closing Occupancy</span> </a> -->
+				<a class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/1.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/1-white.png"> <span class="nav_name">Create New Request </span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/5.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/5-white.png"> <span class="nav_name">Post COE</span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/7.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/7-white.png"> <span class="nav_name">Task Search</span> </a>
+				<a href="#" class="nav_link hideicons"> <img class="bx bx-user nav_icon" id="header-toggle" src="../../../../assets/images/3.png"><img class="bx bx-user nav_icon-hover" src="../../../../assets/images/3-white.png"> <span class="nav_name">Approvals</span> </a>
+			</div>
+		</div>
+		<!-- <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a> -->
+	</nav>
+</div>
+<ng-template #_newRequests>
+    <span>
+        New Requests
+    </span>
+</ng-template>
+<ng-template #_preparation>
+    <span>
+        Preparation
+    </span>
+</ng-template>
+<ng-template #_inEscrow>
+    <span>
+        In Escrow
+    </span>
+</ng-template>
+<ng-template #_wireTransfers>
+    <span>
+        Wire Transfers
+    </span>
+</ng-template>
+<ng-template #_postCOE>
+    <span>
+        Post COE
+    </span>
+</ng-template>
+<ng-template #_approvals>
+    <span>
+        Approvals
+    </span>
+</ng-template>

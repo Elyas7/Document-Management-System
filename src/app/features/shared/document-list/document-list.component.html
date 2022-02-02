@@ -1,0 +1,38 @@
+  <div class="modal-body modal-body-style" style="max-height: 500px; overflow: auto;">
+    <div class="body-property-item">
+      <div class="accordion-body-flex-item">
+        <div class="row">
+          <table class="table table-hover table-striped" id="document">
+            <thead>
+              <tr>
+                <th scope="col">File Name</th>
+                <th scope="col">Document Status</th>
+                <th scope="col">Uploaded By</th>
+                <th scope="col">Uploaded Date Time</th>
+                <th scope="col">Category</th>
+                <th scope="col" style="width: 215px;">Description</th>
+                <th scope="col">Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doc of document">
+                <td>{{doc.Title}}</td>
+                <td>Valid</td>
+                <td>Elyas Fekrat</td>
+                <td>1/20/2022</td>
+                <td>Certificate</td>
+                <td>Angular Training Certificate</td>
+                <td>Escrow</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-body-property-item body-property-item">
+      <div class="accordion-body-flex-item drag-drop-max-width">
+  
+  
+      </div>
+    </div>
+  </div>

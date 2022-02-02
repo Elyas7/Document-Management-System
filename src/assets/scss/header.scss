@@ -1,0 +1,189 @@
+.app-l-header {
+    min-height: 65px;
+    height: auto !important;
+    background: #F8F8F8;
+    border: 1px solid #C7C7C7;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.1);
+    font-family: var(--header-font);
+    padding-left: 48px !important;
+    padding-right: 30px !important;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.app-l-header .navbar-nav {
+    align-items: center;
+    height: 66px;
+}
+
+.app-l-header.body-pd {
+    padding-left: 230px !important;
+}
+
+.app-l-header .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 139.19%;
+    letter-spacing: 0.02em;
+    color: #292929;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    padding-bottom: 8px;
+}
+
+.app-l-header .navbar-nav.left-block .nav-item {
+    height: 100%;
+    border-right: 1px solid #bfbfbf;
+    display: flex;
+    align-items: center;
+}
+
+.app-l-header .navbar-nav.left-block {
+    margin-left: 20px;
+    border-left: 1px solid #bfbfbf;
+}
+
+.app-l-header .navbar-nav.left-block .dropdown {
+    height: 100%;
+}
+
+.app-l-header .navbar-nav .dropdown-toggle::after {
+    border: 0 !important;
+    display: none !important;
+}
+
+.app-l-header .navbar-nav .dropdown-toggle .fa-angle-down {
+    font-size: 18px;
+    vertical-align: bottom;
+    margin-left: 5px;
+    color: #484848;
+}
+
+.app-l-header .navbar-collapse {
+    position: relative;
+    top: -1px;
+    height: 65px;
+}
+
+.notification img {
+    margin-top: 1px;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification span {
+    display: block;
+    width: 18px;
+    min-width: 18px;
+    height: 18px;
+    background: #FD1818;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.42);
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    font-size: 12px;
+}
+
+.app-l-header .navbar-brand img {
+    opacity: .95;
+}
+
+.app-l-header .navbar-nav .dropdown-menu {
+    position: absolute;
+    top: 52px;
+    left: -24px;
+    right: 0;
+    margin: 0 auto;
+    /*background: #373737;*/
+    border-radius: 0 0 6px 6px;
+    padding: 0 !important;
+    min-width: 11rem;
+}
+
+.app-l-header .navbar-nav.navbar-nav.left-block .dropdown-menu {
+    position: fixed;
+    top: 66px;
+    left: 68px;
+    right: 0;
+    margin: 0 auto;
+    background: #D8E1EA;
+    border-radius: 0;
+    border-top: 0;
+    border-bottom: 1px solid #ccd4dc;
+    padding: 0 !important;
+    min-width: 11rem;
+    padding-left: 22px !important;
+}
+
+.app-l-header .navbar-nav.left-block .dropdown-menu.show {
+    display: flex;
+}
+
+body.body-pd .app-l-header .navbar-brand img {
+    display: none;
+}
+
+.app-l-header .navbar-nav .dropdown-menu li {
+    text-align: center;
+    padding: 15px;
+    transition: .2s ease-in-out;
+    cursor: pointer;
+}
+
+.app-l-header .navbar-nav li a.nav-link.main-menu {
+    transition: .2s ease-in-out;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.app-l-header .navbar-nav li:hover a.nav-link.main-menu,
+.app-l-header .navbar-nav li:focus a.nav-link.main-menu,
+.app-l-header .navbar-nav li:active a.nav-link.main-menu {}
+
+.app-l-header .navbar-nav li a .fa-angle-down {
+    transition: .2s ease-in-out;
+}
+
+.app-l-header .navbar-nav li.show a .fa-angle-down {
+    transform: rotate(180deg);
+}
+
+.app-l-header .navbar-nav .dropdown-menu li:hover,
+.app-l-header .navbar-nav .dropdown-menu li:focus,
+.app-l-header .navbar-nav .dropdown-menu li:active  {
+    background: #b6c5d4;
+}
+
+.app-l-header .navbar-nav .dropdown-menu li:last-child {
+    border-bottom: 0;
+}
+
+.app-l-header .navbar-nav .dropdown-menu li a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #364450;
+    text-decoration: none !important;
+}
+
+.app-l-header .navbar-nav.left-block .nav-item.show {
+    background: #d8e1ea;
+}
+
+.app-l-header .navbar-nav.left-block .nav-item.home {
+    background: #e8e8e8;
+}
+
+.body-pd .app-l-header .navbar-nav.navbar-nav.left-block .dropdown-menu {
+    left: 247px;
+}

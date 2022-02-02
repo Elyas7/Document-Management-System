@@ -1,0 +1,156 @@
+
+// Document Upload Section
+
+.dropzone{
+    /* width: 450px;*/
+     height:125px;
+     padding: 2rem;
+     text-align: center;
+     position: relative;
+     margin: 0 auto;
+     background: rgba(95, 115, 143, 0.08);
+     border: 1px dashed #959595;
+     box-sizing: border-box;
+     border-radius: 6px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     input{
+         opacity: 0;
+         position: absolute;
+         z-index: 2;
+         width: 100%;
+         height: 100%;
+         top:0;
+         left: 0;
+  
+     }
+  
+     label{
+         color: white;
+         width: 183px;
+         height: 44px;
+         border-radius: 21.5px;
+         background-color: yellowgreen;
+         padding: 8px 16px;
+  
+     }
+     h3{
+       font-weight: bold;
+       font-size: 14px;
+       line-height: 17px;
+       color: #292929;
+       margin-top: 15px;
+     }
+  
+  }
+  
+  .section-title {
+   font-weight: 600;
+   font-size: 18px;
+   line-height: 21px;
+   color: #282828;
+  }
+  
+  .browse-btn {
+   width: 100%;
+     margin-top: 12px;
+     text-transform: uppercase;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: #3C4045;
+  }
+  
+  .upload-table thead tr th {
+   border-top: 0 !important;
+  }
+  
+  .upload-table.table-striped tbody tr:nth-of-type(odd) {
+   background: rgba(55, 59, 63, 0.00) !important;
+  }
+  
+  .upload-table.table-striped tbody tr:nth-of-type(even) {
+   background: #d0d5da !important;
+  }
+  
+  .files-list {
+     margin-top: 0.5rem;
+     max-height: 125px; 
+     //overflow: auto;
+     .single-file {
+       display: flex;
+       padding: 0.5rem;
+       justify-content: space-between;
+       align-items: center;
+       border: dashed 1px #979797;
+       margin-bottom: 1rem;
+   height: 40px;
+       .delete {
+         display: flex;
+         margin-left: 0.5rem;
+         cursor: pointer;
+         align-self: flex-end;
+       }
+   
+   
+       display: flex;
+       flex-grow: 1;
+   
+       .name {
+         font-size: 12px;
+         font-weight: 500;
+         color: #353f4a;
+         margin: 0;
+       }
+   
+       .size {
+         font-size: 12px;
+         font-weight: 500;
+         color: #a4a4a4;
+         margin: 0;
+         margin-bottom: 0.25rem;
+       }
+   
+       .info {
+         width: 100%;
+         height: 35px;
+       }
+     }
+   }
+  
+   table tbody {
+     display: block;
+     max-height: 300px;
+     overflow-y: scroll;
+   }
+   
+   table thead, table tbody tr {
+     display: table;
+     width: 100%;
+     table-layout: fixed;
+   }
+   .title-word-wrap{
+     word-wrap: break-word;
+    }
+    .drag-drop-max-width{
+      min-width: calc(100% - 0px);
+      margin: (0px 0px);
+    }
+    .body-property-item{
+      width: 100%;
+    }
+    ::ng-deep .ng-select .ng-select-container {
+      min-height: 40px;
+    }
+  
+    ::ng-deep .ng-select.ng-select-multiple .ng-select-container {
+      height: 40px;
+    }
+    .ng-dropdown-panel .ng-select-multiple .ng-star-inserted .ng-select-bottom{
+      z-index: 5000 !important;
+    }
+    .row-style {
+      margin-top: 1.5rem;
+    }

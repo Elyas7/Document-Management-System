@@ -1,0 +1,437 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$document-app-primary: mat.define-palette(mat.$indigo-palette);
+$document-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$document-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$document-app-theme: mat.define-light-theme((
+  color: (
+    primary: $document-app-primary,
+    accent: $document-app-accent,
+    warn: $document-app-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($document-app-theme);
+
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import 'boxicons';
+@import url(assets/scss/header.scss);
+@import url(assets/scss/sidebar.scss);
+@import url(assets/scss/footer.scss);
+@import url(assets/scss/main.scss);
+@import url(assets/scss/button.scss);
+@import url(assets/scss/form.scss);
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-filemanager/styles/material.css';
+
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --first-color: #e4e2ec;
+    --first-color-light: #000000;
+    --white-color: #F7F6FB;
+    --body-font: 'Roboto', sans-serif;
+    --header-font: 'Lato', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box
+}
+
+body {
+    // position: relative;
+    margin-top: 65px !important;
+    margin: var(--header-height) 0 0 0;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+    background-color: #F9F9FD;
+}
+
+// kendo-popup.k-animation-container.k-animation-container-shown{
+//    top: 20px !important;
+// }
+
+a {
+    text-decoration: none
+}
+
+.header {
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: var(--z-fixed);
+    transition: .5s
+}
+
+.header_toggle {
+    color: #000000;
+    ;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 10px;
+}
+
+.header_img {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden
+}
+
+.header_img img {
+    width: 40px
+}
+
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed)
+}
+
+.nav-side {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+}
+
+.nav_logo,
+.nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem
+}
+
+.nav_logo {
+    margin-bottom: 0;
+    padding-left: 15px;
+    /* padding: 14px 20px;*/
+    /* min-height: 65px;*/
+}
+
+.nav_logo img.cx-menu {
+    height: 40px;
+    opacity: .95;
+    // margin-right: 12px;
+}
+
+.nav_logo img.fx-menu {
+    height: 50px;
+    opacity: .95;
+    // margin-right: 12px;
+}
+
+.nav_logo-icon {
+    font-size: 1.25rem;
+    color: #000000;
+}
+
+.nav_logo-name {
+    color: #000000;
+    font-weight: 700
+}
+
+.nav_link {
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 2px;
+    padding: 16px 15px 16px 20px;
+    transition: .3s;
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #333333;
+    text-decoration: none !important;
+}
+
+.nav_link:hover {
+    color: var(--white-color);
+    background-color: #232323;
+}
+
+.nav_icon {
+    font-size: 1.25rem
+}
+
+.show {
+    left: 0
+}
+
+.body-pd {
+    padding-left: 250px;
+}
+
+.active-sidebar {
+    color: var(--white-color);
+    background-color: #232323;
+}
+
+.active-sidebar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color)
+}
+
+.height-100 {
+    height: 100vh
+}
+
+.hidetoggle {
+    visibility: hidden;
+}
+
+@media screen and (min-width: 768px) {
+    // body {
+    //     margin: calc(var(--header-height) + 1rem) 0 0 0;
+    //     padding-left: calc(var(--nav-width) + 2rem)
+    // }
+
+    .header {
+        height: calc(var(--header-height) + 1rem);
+        padding: 0 2rem 0 calc(var(--nav-width) + 0.5rem)
+    }
+
+    .header_img {
+        width: 40px;
+        height: 40px
+    }
+
+    .header_img img {
+        width: 45px
+    }
+
+    .l-navbar {
+        left: 0;
+        padding: 1rem 1rem 0 0
+    }
+
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 12px;
+    margin: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A5A5A5;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    min-height: 22px;
+    left: 0px;
+    bottom: -4px;
+    background-color: #4B4F57;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #5E6575;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #5E6575;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
+    background: #2B2D32;
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+
+/* Style to make pop ups scrollable */
+.dropdown-style {
+    max-height: 200px;
+    overflow: auto;
+}
+
+.kendo-pager-page-sizes-style {
+    padding-left: 12px;
+}
+
+.anchor-cursor {
+    cursor: pointer
+}
+
+.tool-tip-cell {
+    display: block;
+    padding: 15px 12px;
+    margin: -11px;
+}
+
+.popover-body {
+    padding: 0.5rem 0.5rem !important;
+}
+
+.popover {
+    border: 1px solid rgb(0 0 0) !important;
+    max-width: 100% !important;
+}
+
+.address-link {
+    color: rgb(0, 81, 255) !important;
+}
+
+/* Style for custom scrollbar*/
+::-webkit-scrollbar {
+    background-color: black;
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 800px;
+    background: #3a3a3a;
+
+}
+
+// *:hover::-webkit-scrollbar {
+//     width: 8px;
+//     height: 9px;
+
+// }
+
+// ::-webkit-scrollbar:hover {
+//     width: 8px;
+//     height: 9px;
+// }
+
+.warning-feedback {
+    background: yellow;
+    border: 1px solid rgba(228, 253, 1, 0.11);
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0px 8px;
+    font-size: 12px;
+    line-height: 25px;
+    margin-top: 4px;
+    color: #161616;
+    margin-top: -10%;
+}
+
+.summarytable {
+    font-size: 14px !important;
+}
+
+.pop-over-table {
+    font-size: 10px !important;
+}
+
+.pop-over-cell-width {
+    width: 150px;
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

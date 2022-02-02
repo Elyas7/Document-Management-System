@@ -1,0 +1,136 @@
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #e9e9ea ;
+    border-color: #b2b5b9;
+}
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: #D62121 !important;
+}
+.warn {
+    border-color: #e2ce18 !important;
+    background-color: yellow !important;;
+}
+
+.invalid-feedback {
+    background: rgba(255, 0, 0, 0.11);
+    border: 1px solid rgba(228, 16, 16, 0.11);
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0px 8px;
+    font-size: 12px;
+    line-height: 25px;
+    margin-top: 4px;
+    color: #AE1414;
+}
+.invalid-feedback-date {
+    background: rgba(255, 0, 0, 0.11);
+    border: 1px solid rgba(228, 16, 16, 0.11);
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0px 8px;
+    font-size: 12px;
+    line-height: 25px;
+    margin-top: -10%;
+    color: #AE1414;
+}
+.required {
+    color: red;
+    padding-left: 5px;
+  }
+textarea.form-control {
+    font-size: 14px;
+    line-height: 16px;
+    color: #1B1C1D;
+    transition: .2s ease-in-out;
+    padding: 12px;
+}
+
+textarea.form-control:focus {
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #1B1C1D;
+}
+
+
+.form-group label {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    color: #202020;
+}
+
+.form-control::placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #7E7E7E;
+}
+
+.form-control {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #1B1C1D;
+    transition: .2s ease-in-out;
+    border: 1px solid #acafb3;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #1B1C1D;
+}
+
+input:not([type=checkbox]), select {
+    min-height: 0px;
+}
+
+.app-toggle-block {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-text {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.date-form {
+    position: relative;
+}
+
+.date-form .date-icon {
+    position: absolute;
+    right: 9px;
+    top: 36px;
+    opacity: .92;
+}
+
+.app-input-group {
+    position: relative;
+}
+
+.app-input-group .input-item {
+    position: absolute;
+    left: 1px;
+    top: 30px;
+    background: #ececec;
+    border-right: 1px solid #cacaca;
+    width: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px 0 0 4px;
+}
+
+.app-input-group input {
+    padding-left: 50px;
+}

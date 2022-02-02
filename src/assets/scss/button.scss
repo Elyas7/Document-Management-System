@@ -1,0 +1,42 @@
+.app-btn {
+    min-width: 120px;
+    box-shadow: none !important;
+    outline: 0 !important;
+    text-align: center;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-btn.app-mini-btn {
+    min-width: 40px;
+    text-align: center;
+    background: #393d43;
+}
+
+.app-btn.app-primary-btn {
+    background: #393D43;
+    color: #fff;
+}
+
+.app-btn.app-secondary-btn {
+    background: #676C75;
+    border: 1px solid #878787;
+    color: #fff;
+}
+
+.app-btn.app-tertiary-btn {
+    background: #FFFFFF;
+    border: 1px solid #ABABAB;
+    color: #3F4A50;
+}
+.app-btn.app-mini-btn {
+    min-width: 40px;
+    text-align: center;
+    background: #393d43;
+}
+.btnclass {
+    background-color: black;
+    color: white;
+}

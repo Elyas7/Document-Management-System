@@ -23,6 +23,7 @@ import { UploadDocumentsComponent } from './features/shared/upload-documents/upl
 import { PogressBarComponent } from './features/shared/upload-documents/pogress-bar/pogress-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopupModule } from '@progress/kendo-angular-popup';
+import { FotterComponent } from './features/shared/fotter/fotter.component';
 
 
 
@@ -38,6 +39,7 @@ import { PopupModule } from '@progress/kendo-angular-popup';
     SecondarySidebarComponent,
     UploadDocumentsComponent,
     PogressBarComponent,
+    FotterComponent,
   ],
   imports: [
     BrowserModule,

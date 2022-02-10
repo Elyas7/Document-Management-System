@@ -162,7 +162,7 @@
     margin-left: 0px;
     overflow-x: auto;
     overflow-y: auto;
-    padding-left: 44px;
+    padding-left: 18px;
 
 }
 
@@ -180,7 +180,7 @@
     padding-left: 70px;
     padding-right: 16px;
     padding-top: 16px;
-    position: sticky;
+    position: relative;
     top: -1px;
     z-index: 3;
 }
@@ -190,6 +190,7 @@
     overflow: hidden;
     padding: 3px;
     margin-left: -52px;
+    position: relative;
 
 }
 .rc-action-bar-container{

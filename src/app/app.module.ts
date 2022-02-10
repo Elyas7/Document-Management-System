@@ -23,7 +23,15 @@ import { UploadDocumentsComponent } from './features/shared/upload-documents/upl
 import { PogressBarComponent } from './features/shared/upload-documents/pogress-bar/pogress-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopupModule } from '@progress/kendo-angular-popup';
-import { FotterComponent } from './features/shared/fotter/fotter.component';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { ButtonModule } from '@progress/kendo-angular-buttons';
+import { FooterComponent } from './features/shared/footer/footer.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TagInputModule } from 'ngx-chips';
+import { DatePipe } from '@angular/common';
+import { UpdateDocumentsComponent } from './features/shared/update-documents/update-documents.component';
+import { ProgressBarComponent } from './features/shared/update-documents/progress-bar/progress-bar.component';
 
 
 
@@ -39,7 +47,9 @@ import { FotterComponent } from './features/shared/fotter/fotter.component';
     SecondarySidebarComponent,
     UploadDocumentsComponent,
     PogressBarComponent,
-    FotterComponent,
+    FooterComponent,
+    UpdateDocumentsComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,9 +71,14 @@ import { FotterComponent } from './features/shared/fotter/fotter.component';
     ReactiveFormsModule,
     PopupModule,
     DropDownListModule,
-    ExcelModule
+    ExcelModule,
+    LayoutModule,
+    ButtonModule,
+    MatProgressBarModule,
+    NgSelectModule,
+    TagInputModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

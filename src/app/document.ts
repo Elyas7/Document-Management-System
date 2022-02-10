@@ -1,13 +1,9 @@
-export interface Document{
-    DocumentId: number,
-    Title: string,
-    ContentType: string,
-    Category: number,
-}
-
-export interface Tag{
-    data: any[];
-    TagName: string,
-    isActive: boolean;
-    id: number;
-}
+export const Document=[
+    {
+        document_id: "1",
+        title: "Elyas",
+        category: "Esro",
+        description: "Nive",
+        tags: "bad",
+    }
+]

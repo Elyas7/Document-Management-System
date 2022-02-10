@@ -46,7 +46,7 @@
                                                 </button>
                                             </div>
                                             <div style="padding-left: 12px;">
-                                                <button class="delete-button">
+                                                <button class="delete-button" aria-haspopup="true" aria-expanded="false" (click)="updateDocument()" >
                                                     <span class="Upload-Button-content">
                                                         <span class="upload-button-icon">
                                                             <svg viewBox="0 0 24 24" fill="none" class="button-UUIcon" width="24" height="24" focusable="false">
@@ -89,9 +89,6 @@
                                                 <button style="margin-right: 5px;"><img class="filter"
                                                         src="assets/images/refresh.png" /><img class="filter-hover"
                                                         src="assets/images/refresh-white.png" /></button>
-                                                <button [disabled]="isActionDisabled"  style="margin-right: 5px;"><i
-                                                        class="fas fa-upload filter"></i>
-                                                    <i class="fas fa-upload filter-hover" style="color: white;"></i></button>
                                 
                                                 <!-- <button (click)="getGridDataIntoExcel()"><img class="filter" src="assets/images/export.png" /><img
                                                         class="filter-hover" src="assets/images/export-white.png" /></button> -->
@@ -156,18 +153,30 @@
 
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="brws-files-view">
-                                            <div class="selectable-list">
-                                                <div class="files-view-drag-to-select">
-                                                    <div class="files-view-drag-to-remove">
-                                                        <app-document-list></app-document-list>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+                                <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="Document_ID" [(selectedKeys)]="mySelection" [pageSize]="20"
+                                        [pageable]="true"
+                                        [sortable]="true"
+                                        [groupable]="true"
+                                        [reorderable]="true"
+                                        [resizable]="true"
+                                        [height]="500"
+                                        [columnMenu]="{ filter: true }"
+                                        >
+                                    <kendo-grid-checkbox-column [width]="45" [headerClass]="{'text-center': true}" [class]="{ 'text-center': true }"
+                                        [resizable]="false"
+                                        [columnMenu]="false"
+                                        showSelectAll="true"></kendo-grid-checkbox-column>
+                                    <kendo-grid-column field="title" title="File Name">
+                                        <ng-template  kendoGridCellTemplate let-dataItem>
+                                            <div (click)="downloadFile(dataItem)" type="button" >{{dataItem.Title}}</div>
+                                        </ng-template>
+                                    </kendo-grid-column>
+                                    <kendo-grid-column field="Category" title="Category"></kendo-grid-column>
+                                    <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+                                    <kendo-grid-column field="Tags" title="Tags"></kendo-grid-column>
+
+                                </kendo-grid>
                             </div>
                         </div>
                     </div>

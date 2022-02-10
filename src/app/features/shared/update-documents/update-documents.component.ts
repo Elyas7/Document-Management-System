@@ -13,13 +13,13 @@ import { Resources } from 'src/app/resources';
 import { observe } from '@progress/kendo-angular-grid/dist/es2015/utils';
 import {   saveAs as importedSaveAs} from "file-saver"; 
 
-
 @Component({
-  selector: 'app-upload-documents',
-  templateUrl: './upload-documents.component.html',
-  styleUrls: ['./upload-documents.component.scss']
+  selector: 'app-update-documents',
+  templateUrl: './update-documents.component.html',
+  styleUrls: ['./update-documents.component.scss']
 })
-export class UploadDocumentsComponent implements OnInit {
+export class UpdateDocumentsComponent implements OnInit {
+
   title: string = '';
   @Input() requestId!: number;
   @Input() scopedId!: number;
@@ -58,17 +58,12 @@ export class UploadDocumentsComponent implements OnInit {
   value!: string;
   count: number=0;
 
-  
-
-
-
   constructor(private http: HttpClient,
     public activeModal: NgbActiveModal,
     public toastService: ToastServiceService,
     public formBuilder: FormBuilder,
     public docService: DocumentsService,
-    public spinner: NgxSpinnerService,){ }
-
+    public spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
     this.title = 'Upload Documents - ' + this.TitleName;
@@ -89,14 +84,6 @@ export class UploadDocumentsComponent implements OnInit {
     },this.fileUploadValidation)
     this.submitted = false;
   }
-
-  
-
-
-
-
-
-
 
 
   clearDocuments(){
@@ -227,8 +214,5 @@ export class UploadDocumentsComponent implements OnInit {
       this.categoryItems=data;
     })
   }
-
-
-
 
 }

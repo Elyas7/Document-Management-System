@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { SidebarComponent, TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { Item, SidebarComponent, TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { DrawerItem, DrawerMode, DrawerSelectEvent  } from '@progress/kendo-angular-layout';
+import { Router, NavigationStart } from '@angular/router';
 // For MDB Angular Free
 
 
@@ -9,92 +11,99 @@ import { SidebarComponent, TreeViewComponent } from '@syncfusion/ej2-angular-nav
   styleUrls: ['./secondary-sidebar.component.scss']
 })
 export class SecondarySidebarComponent implements OnInit {
-  @ViewChild('dockBar')
-  public dockBar!: SidebarComponent;
-  isCollapsed: boolean = true;
-  public width: string = '329px';
-  public dockSize: string = '66px'; 
-  public height:string='100%';
+@ViewChild('dockBar')
+public dockBar!: SidebarComponent;
+isCollapsed: boolean = true;
+public width: string = '329px';
+public dockSize: string = '66px'; 
+public height:string='100%';
+
+
+public position:string='Right'
+
+div1:boolean=true;
+div2:boolean=true;
+div3:boolean=true;
+
+div4:boolean=true;
+
+
+isShowDiv=false;
+
+isShowDisc=true;
+
+isShowButton=true;
+
+isShowDiscriptionButton=false;
+
+displayVal='';
+
+
+div1Function(){
+  this.div1=true;
+  this.div2=false;
+  this.div3=true;
+  this.div4=true;
+}
+
+div2Function(){
+  this.div2=true;
+  this.div1=false;
+  this.div3=false;
+  this.div4=false
+}
+
+div3Function(){
+  this.div3=true;
+  this.div2=false;
+  this.div1=false;
+}
+
+
+
+
+toggleClick(isCollapsed: boolean): void{
+  this.isCollapsed=isCollapsed;
   
-  
-  public position:string='Right'
-  
-  div1:boolean=true;
-  div2:boolean=true;
-  div3:boolean=true;
-  
-  div4:boolean=true;
-  
-  
-  isShowDiv=false;
-  
-  isShowDisc=true;
-  
-  isShowButton=true;
-  
-  isShowDiscriptionButton=false;
-  
-  displayVal='';
-  
-  
-  div1Function(){
-    this.div1=true;
-    this.div2=false;
-    this.div3=true;
-    this.div4=true;
-  }
-  
-  div2Function(){
-    this.div2=true;
-    this.div1=false;
-    this.div3=false;
-    this.div4=false
-  }
-  
-  div3Function(){
-    this.div3=true;
-    this.div2=false;
-    this.div1=false;
-  }
-  
-  
-  
-  
-  toggleClick(isCollapsed: boolean): void{
-    this.isCollapsed=isCollapsed;
-    
-  }
-  
-  toggleDisplayDiv(){
-    this.isShowDiv=!this.isShowDiv;
-  }
-  
-  toggleDisplayDisc(){
-    this.isShowDisc=!this.isShowDisc;
-  }
-  
-  toggleDisplayButton(){
-    this.isShowButton=!this.isShowButton;
-  }
-  
-  toggleDisplayDiscriptionButton(){
-    this.isShowDiscriptionButton=!this.isShowDiscriptionButton;
-  }
-  
-  
-  getValue(val:string){
-    this.displayVal=val
-  }
+}
+
+toggleDisplayDiv(){
+  this.isShowDiv=!this.isShowDiv;
+}
+
+toggleDisplayDisc(){
+  this.isShowDisc=!this.isShowDisc;
+}
+
+toggleDisplayButton(){
+  this.isShowButton=!this.isShowButton;
+}
+
+toggleDisplayDiscriptionButton(){
+  this.isShowDiscriptionButton=!this.isShowDiscriptionButton;
+}
+
+
+getValue(val:string){
+  this.displayVal=val
+}
+
+
+
 
 
 
   
 
-  constructor() { }
+  constructor( private router: Router) { }
 
     
 
   ngOnInit(): void {
+    
   }
+
+  
+  
 
 }

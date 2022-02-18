@@ -1,0 +1,36 @@
+.file{
+    opacity: 0;
+    padding: 5rem;
+    width: auto;
+    height: 5rem;
+}
+
+.file-container{
+    width: 600px;
+    border: 4px dotted black;
+
+}
+
+.wrapper {
+    background: #39E2B6;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    text-align: center;
+    left: 0;
+    font-size: 100px;
+    font-family: calibri;
+    color: white;
+    line-height: 100vh;
+}
+
+.dropzone {
+  width: 50%;
+  margin: 1%;
+  border: 2px dashed #3498db !important;
+  border-radius: 5px;
+}
+
+

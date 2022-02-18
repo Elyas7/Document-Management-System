@@ -1,13 +1,7 @@
-export interface Document{
-    DocumentId: number,
+export interface Document {
+    Document_ID: number,
     Title: string,
-    ContentType: string,
-    Category: number,
-}
-
-export interface Tag{
-    data: any[];
-    TagName: string,
-    isActive: boolean;
-    id: number;
-}
+    Category: string,
+    Description: string,
+    Tags: string,
+    checked?: boolean;}

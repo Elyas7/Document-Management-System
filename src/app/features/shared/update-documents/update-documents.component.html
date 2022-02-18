@@ -5,23 +5,17 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form (ngSubmit)="validFileUploadSubmit()" [formGroup]="saveFileForm">
+  <form [formGroup]="fileUploadform" (ngSubmit)="validFileUploadSubmit()">
     <div class="modal-body modal-body-style" style="max-height: 500px; overflow: auto;">
       <div class="accordion-body-property-item body-property-item">
         <div class="accordion-body-flex-item drag-drop-max-width">
-          <div class="dropzone">
-            <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowserHandler($any($event).target.files)"
-              (click)="($any($event).target.value=null)" />
-            <img src="assets/images/drag.png" style="height: 70px;">
-            <h3>Drag and drop files here</h3>
-          </div>
           <!-- <button type="button" (click)="openFile()" class="btn btn-dark browse-btn" for="fileDropRef"><img class="mr-1"
             src="../../../../../assets/images/file-attach.png"> Browse for file</button> -->
         </div>
       </div>
       <div class="accordion-body-property-item body-property-item">
         <div class="accordion-body-flex-item drag-drop-max-width">
-          <div class="row" style="margin-top:10px;" *ngIf="files.length!==0">
+          <div class="row" style="margin-top:10px;" >
             <div class="col-lg-3">
               <label>Category</label>
             </div>
@@ -29,17 +23,17 @@
               <label>Tags</label>
             </div>
           </div>
-          <ng-container *ngIf="files.length!==0" >
+          <ng-container  >
             <div class="files-list">
   
               <div class="row row-style" >
                 <div class="col-lg-3" >
-                  <select formControlName="category" class="form-control">
-                    <option *ngFor="let catItem of categoryItems" aria-placeholder="Category">{{catItem.CategoryName}}</option>
+                  <select formControlName="Category" class="form-control">
+                    <option *ngFor="let item of resultText" aria-placeholder="Category">{{item.Category}}</option>
                   </select>
                 </div>
                 <div class="col-lg-4">
-                  <ng-select [closeOnSelect]="false" [multiple]="true" [items]="tagsItems" formControlName="tags" bindLabel="TagName" bindValue="TagName" [ngModel]="tags">
+                  <ng-select [closeOnSelect]="false" [multiple]="true" [items]="tagsItems" formControlName="Tags" bindLabel="TagName" bindValue="TagName" [ngModel]="tags">
                     <option *ngFor="let item of tagsItems">{{item.TagName}}</option>
                   </ng-select>
                 </div>
@@ -65,16 +59,10 @@
                         <polygon style="fill:#CEC9AE;" points="37.5,0 37.5,14 51.5,14 " />
                       </svg>
                     </div>
-                    <div class="info">
-                      <h4 class="name"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
-                        {{ files[i]?.name }}
+                    <div class="info" *ngFor="let item of resultText">
+                      <h4 class="name"  [(ngModel)]="Title" >
+                        {{item.Title}}
                       </h4>
-                      <p class="size"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
-                        {{ formatBytes(files[i]?.size) }}
-                      </p>
-                      <div style="width: 95%;"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
-                        <app-pogress-bar [progress]="files[i]?.progress"></app-pogress-bar>
-                      </div>
                     </div>
   
                     <!-- <div class="delete" (click)="deleteFile(i)">
@@ -84,20 +72,11 @@
                           </svg>
                         </div> -->
   
-                    <div class="app-title-holder-action" style="margin-top: 15px;"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
-                      <div class="title-btn-holder">
-                        <div>
-                          <button (click)="deleteFile(i)" class="btn-style"><i class="fas fa-trash-alt filter"></i>
-                            <i class="fas fa-trash-alt filter-hover" style="color: white;"></i></button>
-                        </div>
-                      </div>
-                    </div>
-  
                   </div>
                 </div>
-                <div class="col-lg-12">
-                  <textarea type="text" placeholder="Description" formControlName="description" class="form-control"
-                    rows="3"></textarea>
+                <div class="col-lg-12" *ngFor="let item of resultText">
+                  <textarea type="text" placeholder="Description"  class="form-control"
+                    rows="3" [(ngModel)]="Description">{{item.Description}}</textarea>
                 </div>
               </div>
             </div>
@@ -107,6 +86,6 @@
       </div>
     </div>
     <div class="modal-footer popup-footer">
-      <button [disabled]="files.length === 0" type="submit" class="btn btn-dark text-uppercase">Upload Documents</button>
+      <button type="submit" class="btn btn-dark text-uppercase">Update Documents</button>
     </div>
   </form>

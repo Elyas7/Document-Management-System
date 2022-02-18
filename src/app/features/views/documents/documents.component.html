@@ -166,19 +166,19 @@
                                         <div class="right-rail-info-blade--metadata-data">
                                             <span class="dig-Text dig-Text--variant-paragraph dig-Text--size-small dig-Text--color-standard">5/1/2022 2:26pm</span>
                                         </div>
-                                    </div>
-                                    <div class="right-rail-info-blade--metadata-row" *ngIf="isCategorySelected">
-                                        <div class="right-rail-info-blade--metadata-title categor">
-                                            <span class="dig-Text dig-Text--variant-paragraph dig-Text--size-small dig-Text--color-faint">Category</span>
-                                        </div>
-                                        <div class="right-rail-info-blade--metadata-data " *ngFor="let item of resultText">
-                                            <select  class="form-control">
-                                                <option *ngFor="let catItem of CategoryItems" aria-placeholder="Category">{{item.Category}}</option>
-                                            </select>
-                                            <span class="dig-Text dig-Text--variant-paragraph dig-Text--size-small dig-Text--color-standard"></span>
-                                        </div>
-                                    </div>                                        
+                                    </div>                                    
                                 </div>
+                                <div style="margin-top: 9px;" *ngIf="isCategorySelected">
+                                    <div >
+                                        <span class="dig-Text dig-Text--variant-paragraph dig-Text--size-small dig-Text--color-faint">Category</span>
+                                    </div>
+                                    <div  *ngFor="let item of resultText">
+                                        <select  class="form-control">
+                                            <option *ngFor="let catItem of CategoryItems" aria-placeholder="Category">{{item.Category}}</option>
+                                        </select>
+                                        <span class="dig-Text dig-Text--variant-paragraph dig-Text--size-small dig-Text--color-standard"></span>
+                                    </div>
+                                </div>    
                             </div>
                         </div>
                     </div>
@@ -228,7 +228,21 @@
                                 <div class="base-comments-pane-blade">
                                     <div class="sc-comment-stream sc-comment-stream--right-rail sc-comment-stream-enabled sc-comment-stream-all-changes-saved">
                                         <div class="a-q-Lb " *ngFor="let item of resultText">
-                                            <textarea  #box class="a-q-Lb-Cb"  aria-label="Edit description" data-target="descriptionInput" >{{item.Description}}</textarea>
+                                            <textarea kendoTextArea >{{item.Description}}
+                                            </textarea>
+                                            <kendo-textarea-suffix class="custom-suffix">
+                                                <button
+                                                  kendoButton
+                                                  fillMode="clear"
+                                                  icon="close-circle"
+                                                  class="button-opacity"
+                                                ></button>
+                                                <span class="k-flex-1"></span>
+                                                <kendo-input-separator class="k-text-base"></kendo-input-separator>
+                                                <button kendoButton fillMode="clear" class="send-button">
+                                                  Save
+                                                </button>
+                                              </kendo-textarea-suffix>
                                         </div>
 
                                     </div>

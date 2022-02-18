@@ -13,6 +13,7 @@ import { Resources } from 'src/app/resources';
 import { observe } from '@progress/kendo-angular-grid/dist/es2015/utils';
 import { saveAs as importedSaveAs} from "file-saver"; 
 import { ActivatedRoute, Router } from '@angular/router';
+import { Document } from 'src/app/document';
 
 @Component({
   selector: 'app-update-documents',
@@ -27,7 +28,7 @@ export class UpdateDocumentsComponent implements OnInit {
   @Input() applicationId!: number;
   @Input() TitleName!: string;
   @Input() resultText:any[]=[];
-  document!: any[];
+  document!: Document;
   files: any[] = [];
   theFile: any=null;
   public messages!: string;
@@ -79,27 +80,13 @@ export class UpdateDocumentsComponent implements OnInit {
     this.getAllTags();
     this.getAllCategory();
     this.allSupportedFiles = this.supportedFileTypes.getallSupportedTypes();
-    this.fileUploadValidation = {
-      dynamicItems: this.formBuilder.array([])
-    };
     //validation here
     this.fileUploadform = this.formBuilder.group({
       Category: [''],
       Description: [''],
       Tags: ['']
     });
-    this.saveFileForm= this.formBuilder.group({
-      category: ['', Validators.required],
-      description: ['', Validators.required],
-      tags: ['', Validators.required]
-    },this.fileUploadValidation)
-    this.submitted = false;
-    this.docService.getDocuments(this.docID).subscribe(doc => {
-      this.Title = doc.Title
-      this.category = doc.Category
-      this.description = doc.Description
-      this.tags = doc.Tags
-    })
+
   }
 
 
@@ -169,13 +156,14 @@ export class UpdateDocumentsComponent implements OnInit {
     }, 100);
   }
 
-  validFileUploadSubmit(){
+  validFileUploadSubmit(document: Document){
     this.submitted = true;
     if (!this.fileUploadform.valid){
       return;
     }
     else {
-      this.docService.editDocumentByID(this.docID, this.Category, this.Description, this.Tags).subscribe(()=>{
+      document.Document_ID = this.docID
+      this.docService.editDocumentByID(document).subscribe(()=>{
         alert("Successfully Updated");
         window.location.reload();
       })

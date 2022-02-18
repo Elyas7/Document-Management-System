@@ -58,13 +58,11 @@ export class DocumentsService {
     return this.http.delete<any>(`https://localhost:44329/api/Documents/${Document_ID}`);
   }
 
-  editDocumentByID(Document_ID: number, Category: string, Description: string, Tags: string){
-    return this.http.put<Document>(`https://localhost:44329/api/Documents/${Document_ID}`, {
-      "Document_ID": Document_ID,
-      "Category": Category,
-      "Description": Description,
-      "Tags": Tags,
-    })
+  editDocumentByID(document: Document): Observable<Document>{
+    const httpOptions = {headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })};
+    return this.http.put<Document>('https://localhost:44329/api/Documents/', document, httpOptions);
   }
 
   

@@ -33,6 +33,8 @@ import { UpdateDocumentsComponent } from './features/shared/update-documents/upd
 import { ProgressBarComponent } from './features/shared/update-documents/progress-bar/progress-bar.component';
 import { DocumentSummaryBulkDownloadComponent } from './features/views/documents/document-summary-bulk-download/document-summary-bulk-download.component';
 import { CommonModule } from '@angular/common';  
+import { LabelModule } from "@progress/kendo-angular-label";
+import { InputsModule } from "@progress/kendo-angular-inputs";
 
 
 
@@ -79,7 +81,9 @@ import { CommonModule } from '@angular/common';
     NgSelectModule,
     TagInputModule,
     CommonModule,
-    BrowserModule
+    BrowserModule,
+    InputsModule, 
+    LabelModule
   ],
   providers: [DatePipe, NgbActiveModal],
   bootstrap: [AppComponent]

@@ -41,7 +41,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/app/common/js/sidebar.js",
-              "src/app/common/js/pdf.js"
+              "src/assets/pdf.js"
             ]
           },
           "configurations": {

@@ -1,9 +1,7 @@
-export const Document=[
-    {
-        document_id: "1",
-        title: "Elyas",
-        category: "Esro",
-        description: "Nive",
-        tags: "bad",
-    }
-]
+export interface Document {
+    Document_ID: number,
+    Title: string,
+    Category: string,
+    Description: string,
+    Tags: string,
+    checked?: boolean;}

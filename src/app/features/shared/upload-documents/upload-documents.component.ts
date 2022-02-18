@@ -185,6 +185,7 @@ export class UploadDocumentsComponent implements OnInit {
           this.activeModal.dismiss();
           this.toastService.success("Documents uploaded successfully");
           this.spinner.hide();
+          window.location.reload();
         });
       //this.docService.uploadDocument(this.Category, this.Description, this.Tags).subscribe(() =>{
         //alert("Successfully submitted");

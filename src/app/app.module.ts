@@ -7,7 +7,7 @@ import { ExcelModule,GridModule } from '@progress/kendo-angular-grid';
 import {TreeViewModule} from '@progress/kendo-angular-treeview'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SidebarModule} from '@syncfusion/ej2-angular-navigations';
 import { TopNavComponent } from './features/shared/top-nav/top-nav.component';
 import { SideBarComponent } from './features/shared/side-bar/side-bar.component';
@@ -15,7 +15,6 @@ import { DocumentsComponent } from './features/views/documents/documents.compone
 import { DropDownsModule, DropDownListModule } from '@progress/kendo-angular-dropdowns';
 import { DocumentListComponent } from './features/shared/document-list/document-list.component';
 import { MatIconModule} from '@angular/material/icon';
-import { SecondarySidebarComponent } from './features/shared/secondary-sidebar/secondary-sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -32,6 +31,8 @@ import { TagInputModule } from 'ngx-chips';
 import { DatePipe } from '@angular/common';
 import { UpdateDocumentsComponent } from './features/shared/update-documents/update-documents.component';
 import { ProgressBarComponent } from './features/shared/update-documents/progress-bar/progress-bar.component';
+import { DocumentSummaryBulkDownloadComponent } from './features/views/documents/document-summary-bulk-download/document-summary-bulk-download.component';
+import { CommonModule } from '@angular/common';  
 
 
 
@@ -44,12 +45,12 @@ import { ProgressBarComponent } from './features/shared/update-documents/progres
     SideBarComponent,
     DocumentsComponent,
     DocumentListComponent,
-    SecondarySidebarComponent,
     UploadDocumentsComponent,
     PogressBarComponent,
     FooterComponent,
     UpdateDocumentsComponent,
     ProgressBarComponent,
+    DocumentSummaryBulkDownloadComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,9 +77,11 @@ import { ProgressBarComponent } from './features/shared/update-documents/progres
     ButtonModule,
     MatProgressBarModule,
     NgSelectModule,
-    TagInputModule
+    TagInputModule,
+    CommonModule,
+    BrowserModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

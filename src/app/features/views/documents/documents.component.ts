@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, HostListener, Renderer2, ViewChild} from '@angular/core';
 import { animate } from '@angular/animations';
-import { GridComponent, GridDataResult, PageChangeEvent, GridModule, DataBindingDirective } from '@progress/kendo-angular-grid';
+import { GridComponent, GridDataResult, PageChangeEvent, GridModule, DataBindingDirective, AddEvent, EditEvent, CellClickEvent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
@@ -18,13 +18,19 @@ import {UploadDocumentsComponent} from 'src/app/features/shared/upload-documents
 import {LookUpTypes} from 'src/app/lookup-type-enums';
 import {LookUpData} from 'src/app/lookup-data';
 import {DatePipe} from '@angular/common';
-import {Document} from 'src/app/document'
+import { Document } from 'src/app/document';
 import { BrowserModule } from '@angular/platform-browser'
 import { saveAs as importedSaveAs } from "file-saver"; 
 import {UpdateDocumentsComponent} from 'src/app/features/shared/update-documents/update-documents.component';
 import { Size } from '@progress/kendo-drawing/dist/npm/geometry';
+import { SelectionModel } from '@angular/cdk/collections';
+import {DocumentSummaryBulkDownloadComponent} from 'src/app/features/views/documents/document-summary-bulk-download/document-summary-bulk-download.component';
+import { Router } from '@angular/router';
+import { groupBy, GroupDescriptor } from "@progress/kendo-data-query";
+import { CommonModule } from '@angular/common';  
 declare var require:any
 const FileSaver=require('file-saver');
+
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
@@ -40,8 +46,7 @@ export class DocumentsComponent implements OnInit {
   show=true;
   showFiller=false;
 
-  document!:Document
-  public gridData: any[]= Document;
+  document: Document[]=[];
   public gridView!: any[];
   public mySelection: string[] = [];
   
@@ -125,10 +130,20 @@ export class DocumentsComponent implements OnInit {
   isFileNameValid: boolean = true;
 
   currentDocsStatusId!: number;
-  public formGroup: FormGroup | undefined ;
-  private editedRowIndex!: number | undefined;
+  public formGroup: FormGroup | undefined;
+  private editedRowIndex!: any;
   cacheService: any;
   gridHeaderColumns: any;
+
+  selectedRow!: Number;
+  checkboxes!: boolean[];
+
+  file: any;
+  form!:FormGroup;
+  isSelected= true;
+  isCategorySelected= false;
+
+
   constructor(public spinner:NgxSpinnerService,
     private _Activatedroute:ActivatedRoute,
     private docService: DocumentsService,
@@ -137,24 +152,100 @@ export class DocumentsComponent implements OnInit {
     public modalService: NgbModal,
     private renderer: Renderer2,
     public dialog:MatDialog,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private router: Router
     ) {
       this.datepipe=new DatePipe('en-US');
      }
 
   listFilwDetails: any;
+  public get isInEditingMode(): boolean {
+    return this.editedRowIndex !== undefined || this.isNew;
+  }
 
 
   
 
   ngOnInit(): void {
     this.title='Documents Lists - Elyas Fekrat';
-    this.gridView=this.listFilwDetails;
-    this.docService.getDocumentsByID().subscribe(result =>{
-      this.gridView=result;
-    })
+    this.ReciveData();
+    this.onChange();
+    this.checkedIDs();
+    this.getAllTags();
+    this.getAllCategory();
   }
 
+  toggleSelect(){
+    this.isSelected = !this.isSelected;
+    this.isCategorySelected = !this.isCategorySelected;
+  }
+
+  ReciveData(){
+    this.gridView=this.listFilwDetails;
+    this.docService.getDocumentsByID().subscribe(document => this.document=document);
+
+  }
+
+  getFile(files: FileList){
+    this.file= files.item(0);
+    const formData = new FormData();
+    formData.set('FileUpload', this.file);
+    this.spinner.show();
+    this.docService.AddFileDetails(formData).subscribe(result =>{
+      this.toastService.success("Document uploaded successfully");
+      this.spinner.hide();
+      window.location.reload();
+    });
+  }
+
+  checkAllCheckBox(ev: any){
+    this.document.forEach(x => x.checked = ev.target.chceked)
+  }
+  isAllCheckBoxChecked(){
+    return this.document.every(d => d.checked);
+  }
+
+  
+
+  delete(): void{
+    const selectedDoc = this.document.filter(doc => doc.checked).map(d => d.Document_ID);
+    console.log(selectedDoc);
+    
+    if (selectedDoc && selectedDoc.length > 0){
+      this.docService.deletedocument(selectedDoc as number[]).subscribe(res => {
+        alert("Sucessfully deleted");
+        window.location.reload();
+      }, err =>{
+        alert("Something went wrong");
+      });
+    }else{
+      alert("You must select at least one document");
+    }
+  }
+
+
+  resultText:any[]=[];
+  checkedID: any[]=[];
+
+
+  onChange(){
+    this.resultText = this.document.filter((value, index)=>{
+      return value.checked
+    });
+  }
+
+  changeSelection(){
+    this.onChange();
+  }
+
+  checkedIDs(){
+    this.checkedID = []
+    this.document.forEach((value, index)=>{
+      if (value.checked){
+        this.checkedID.push(value.Document_ID);
+      }
+    });
+  }
 
 
   downloadFile(data){
@@ -208,116 +299,18 @@ export class DocumentsComponent implements OnInit {
 
   refresh(){
     this.showGridFilter = false;
-    this.loadGridItems();
+    this.ReciveData();
+    
   }
 
   sortChange(sort: SortDescriptor[]): void{
     this.sort=sort;
   }
 
-
-  loadGridItems(): void {
-    let tags = "";
-    let i = 0;
-    this.tagsCheckedKeys.forEach((element) => {
-      tags += element;
-      if (i < this.tagsCheckedKeys.length - 1) {
-        tags += ',';
-      }
-      i++;
-    });
-    let category = "";
-    if (this.requesttype === 'wire') {
-      //categoryid = '5';
-      if (this.categoryCheckedKeys.includes(5) == false) {
-        this.categoryCheckedKeys.push(5);
-      }
-      this.requesttype = '';
-    }
-    let j = 0;
-    this.categoryCheckedKeys.forEach((element) => {
-      category += element;
-      if (i < this.categoryCheckedKeys.length - 1) {
-        category += ',';
-      }
-      j++;
-    });
-    var filterData = {
-      Number: this.requestId,
-      keyword: this.filtervalue,
-      tags: tags,
-      category: category,
-      pageSize: this.pageSize,
-      pageNumber: this.pageNumber
-    }
-    this.spinner.show();
-    this.docService.getDocumentsByID(
-    ).subscribe((response: any) => {
-      response.data.sort((a, b) => a.fileName.toLocaleLowerCase() > b.fileName.toLocaleLowerCase() ? 1 : -1)
-      if (this.documentGrid != undefined) {
-        this.documentGrid.closeRow(this.editedRowIndex);
-      }
-      response.data.forEach(element => {
-        this.data.push(element);
-      });
-      response.data.map(q => {
-        q.createdOn = this.datepipe.transform(q.createdOn, 'MM/dd/yy');
-        if (q.createdBy != null) {
-          q.createdBy = q.createdBy.split('<')[0];
-        }
-        if (q.tags != null) {
-          q.tags = JSON.parse(q.tags);
-          var tag = '';
-          for (let index = 0; index < q.tags.length; index++) {
-            const element = q.tags[index];
-            if (index == 0) {
-              tag = element.TagName;
-            }
-            else {
-              tag = tag + ' , ' + element.TagName
-            }
-          }
-          q.tags = tag;
-        }
-        return q
-      });
-
-
-      response['total'] = response['totalRecords'];
-      this.totalPages = Math.floor(response['totalRecords'] / this.pageSize) + 1;
-      this.gridItems = response;
-      console.log(this.gridItems);
-
-      this.spinner.hide();
-      this.detectPermissionChange()
-    }, (error) => {
-      this.spinner.hide();
-    });
-
-  }
-
   detectPermissionChange(){
 
   }
 
-  public editHandler({ sender, rowIndex, dataItem }) {
-    this.selectedDocumentId = '';
-    this.closeEditor(sender);
-    this.getTagsId(dataItem);
-    this.formGroup = this.createFormGroup(dataItem);
-    this.selectedDocumentId = dataItem.id;
-    this.getTagsId(dataItem);
-    this.editedRowIndex = rowIndex;
-    sender.editRow(rowIndex, this.formGroup);
-  }
-
-  createFormGroup = dataItem => new FormGroup({
-    'fileName': new FormControl(this.getFileName(dataItem), Validators.required),
-    'categoryId': new FormControl(dataItem.categoryId),
-    'categoryName': new FormControl(dataItem.categoryName),
-    'description': new FormControl(dataItem.description),
-    'tags': new FormControl(dataItem.tags),
-  });
 
   getFileName(dataItem): string {
     let splitted: any = dataItem.fileName.split(".");
@@ -337,11 +330,66 @@ export class DocumentsComponent implements OnInit {
     this.tagsShow = show !== undefined ? show : !this.tagsShow;
   }
 
-  private closeEditor(grid, rowIndex = this.editedRowIndex) {
+  createFormGroup = (dataItem)=> new FormGroup({
+    Document_ID: new FormControl(dataItem.Document_ID),
+    Title: new FormControl(dataItem.Title),
+    Category: new FormControl(dataItem.Category),
+    Description: new FormControl(dataItem.Description),
+    Tags: new FormControl(dataItem.Tags),
+    
+  });
+
+ 
+  @ViewChild('grid') private grid!: GridComponent;
+  private isNew!: boolean;
+  
+
+  public addHandler({sender}: AddEvent): void{
+    this.closeEditor(sender);
+
+    this.formGroup = this.createFormGroup({
+      Document_ID: false,
+      Title: "",
+      Category: "",
+      Description: "",
+      Tags: "",
+    });
+    this.isNew = true;
+    this.grid.addRow(this.formGroup);
+  }
+
+  public editHandler({sender,columnIndex, dataItem, rowIndex}: CellClickEvent): void {
+    if (this.formGroup && !this.formGroup.valid) {
+      return;
+    }
+    this.selectedDocumentId ='';
+    this.closeEditor(sender);
+    this.formGroup = this.createFormGroup(dataItem);
+    this.selectedDocumentId = dataItem.Document_ID;
+    this.editedRowIndex = rowIndex;
+    
+    sender.editRow(rowIndex, this.formGroup, {columnIndex });
+  }
+
+  public cancelHandler({sender, rowIndex}){
+    this.closeEditor(sender, rowIndex);
+  }
+
+
+  private closeEditor(grid, rowIndex= this.editedRowIndex){
+    this.isNew = false;
     grid.closeRow(rowIndex);
     this.editedRowIndex = undefined;
-    this.formGroup = undefined;
+    this.formGroup=undefined;
   }
+
+
+
+  
+
+  
+
+
 
 
 
@@ -349,10 +397,24 @@ export class DocumentsComponent implements OnInit {
     const modalRef = this.modalService.open(UploadDocumentsComponent, {size: 'xl', backdrop: 'static'});
     modalRef.componentInstance.TitleName = this.address;
   }
-
-  updateDocument(){
-    const modalRef = this.modalService.open(UpdateDocumentsComponent, {size: 'xl', backdrop: 'static'});
+  upload(){
+    const modalRef1 = this.modalService.open(DocumentSummaryBulkDownloadComponent);
+    modalRef1.componentInstance.TitleName=this.address;
   }
+  Document_ID!: number;
+  Title!: string;
+  Category!: string;
+  Description!: string;
+  Tags!: string;
+
+
+
+  update(){
+    const modalRef = this.modalService.open(UpdateDocumentsComponent, {size: 'xl', backdrop: 'static'});
+    modalRef.componentInstance.resultText=this.resultText;
+
+  }
+
 
   getTagsData(){
     this.docService.getAllTags().subscribe((res) =>{
@@ -427,6 +489,105 @@ export class DocumentsComponent implements OnInit {
 
     }
   }
+  tagsItems!: any[];
+
+  getAllTags(){
+    this.docService.getAllTags().subscribe((data: any)=>{
+      this.tagsItems=data;
+    })
+  }
+  CategoryItems!: any[];
+
+  getAllCategory(){
+    this.docService.getAllCategory().subscribe((data1: any) => {
+      this.CategoryItems=data1;
+    })
+  }
+
+
+
+  isCollapsed: boolean = true;
+  div1:boolean=true;
+  div2:boolean=true;
+  div3:boolean=true;
+
+  div4:boolean=true;
+
+
+  isShowDiv=false;
+
+  isShowDisc=true;
+
+  isShowButton=true;
+
+  isShowDiscriptionButton=false;
+
+  displayVal='';
+
+
+  div1Function(){
+    this.div1=true;
+    this.div2=false;
+    this.div3=true;
+    this.div4=true;
+  }
+
+  div2Function(){
+    this.div2=true;
+    this.div1=false;
+    this.div3=false;
+    this.div4=false
+  }
+
+  div3Function(){
+    this.div3=true;
+    this.div2=false;
+    this.div1=false;
+  }
+
+
+
+
+  toggleClick(isCollapsed: boolean): void{
+    this.isCollapsed=isCollapsed;
+    
+  }
+
+  toggleDisplayDiv(){
+    this.isShowDiv=!this.isShowDiv;
+  }
+
+  toggleDisplayDisc(){
+    this.isShowDisc=!this.isShowDisc;
+  }
+
+  toggleDisplayButton(){
+    this.isShowButton=!this.isShowButton;
+  }
+
+  toggleDisplayDiscriptionButton(){
+    this.isShowDiscriptionButton=!this.isShowDiscriptionButton;
+  }
+
+
+  getValue(val:string){
+    this.displayVal=val
+  }
+
+
+  getFile1(files: FileList){
+    this.file= files.item(0);
+    const formData = new FormData();
+    formData.set('FileUpload', this.file);
+    this.spinner.show();
+    this.docService.AddFileDetails(formData).subscribe(result =>{
+      this.toastService.success("Document uploaded successfully");
+      this.spinner.hide();
+      window.location.reload();
+    });
+  }
+
+  
   
 
   

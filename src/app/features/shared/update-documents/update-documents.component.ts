@@ -11,7 +11,8 @@ import { LookUpTypes } from 'src/app/lookup-type-enums';
 import { Tag } from 'src/app/tags';
 import { Resources } from 'src/app/resources';
 import { observe } from '@progress/kendo-angular-grid/dist/es2015/utils';
-import {   saveAs as importedSaveAs} from "file-saver"; 
+import { saveAs as importedSaveAs} from "file-saver"; 
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-documents',
@@ -25,6 +26,7 @@ export class UpdateDocumentsComponent implements OnInit {
   @Input() scopedId!: number;
   @Input() applicationId!: number;
   @Input() TitleName!: string;
+  @Input() resultText:any[]=[];
   document!: any[];
   files: any[] = [];
   theFile: any=null;
@@ -54,19 +56,26 @@ export class UpdateDocumentsComponent implements OnInit {
   category: string = '';
   description: string = '';
   tags: string = '';
-  resultText: any[]=[];
   value!: string;
   count: number=0;
+  docID!: number;
+  Title!: string;
+  Category!: string;
+  Description!: string;
+  Tags!: string;
+  
 
   constructor(private http: HttpClient,
     public activeModal: NgbActiveModal,
     public toastService: ToastServiceService,
     public formBuilder: FormBuilder,
     public docService: DocumentsService,
-    public spinner: NgxSpinnerService,) { }
+    public spinner: NgxSpinnerService,
+    private router: Router,
+    private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.title = 'Upload Documents - ' + this.TitleName;
+    this.title = 'Update Documents - ';
     this.getAllTags();
     this.getAllCategory();
     this.allSupportedFiles = this.supportedFileTypes.getallSupportedTypes();
@@ -74,15 +83,23 @@ export class UpdateDocumentsComponent implements OnInit {
       dynamicItems: this.formBuilder.array([])
     };
     //validation here
-    this.fileUploadform = this.formBuilder.group(
-    this.fileUploadValidation
-    );
+    this.fileUploadform = this.formBuilder.group({
+      Category: [''],
+      Description: [''],
+      Tags: ['']
+    });
     this.saveFileForm= this.formBuilder.group({
       category: ['', Validators.required],
       description: ['', Validators.required],
       tags: ['', Validators.required]
     },this.fileUploadValidation)
     this.submitted = false;
+    this.docService.getDocuments(this.docID).subscribe(doc => {
+      this.Title = doc.Title
+      this.category = doc.Category
+      this.description = doc.Description
+      this.tags = doc.Tags
+    })
   }
 
 
@@ -158,21 +175,10 @@ export class UpdateDocumentsComponent implements OnInit {
       return;
     }
     else {
-      const formData: any = new FormData();
-      for (const item of this.files) {
-        formData.append('FileUpload', item);
-      }
-      this.tagFormData.push(this.tags)
-      formData.append('category', this.saveFileForm.value.category);
-      formData.append('description', this.saveFileForm.value.description);
-      formData.append('tags', this.saveFileForm.value.tags);
-
-      this.spinner.show();
-      this.docService.AddFileDetails(formData).subscribe(result =>{
-          this.activeModal.dismiss();
-          this.toastService.success("Documents uploaded successfully");
-          this.spinner.hide();
-        });
+      this.docService.editDocumentByID(this.docID, this.Category, this.Description, this.Tags).subscribe(()=>{
+        alert("Successfully Updated");
+        window.location.reload();
+      })
       //this.docService.uploadDocument(this.Category, this.Description, this.Tags).subscribe(() =>{
         //alert("Successfully submitted");
       //})

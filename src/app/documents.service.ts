@@ -44,12 +44,35 @@ export class DocumentsService {
     })
   }
 
+  apiUrl='https://localhost:44329/API/Demo';
+
+  deletedocument(Document_ID: number[]){
+    const httpOptions1 = {  
+      headers: new HttpHeaders({  
+        'Accept': 'application/json',
+				'Content-Type': 'application/json'  
+      }), 
+      responseType: 'text' as 'json'
+    };
+    const data = {'Document_ID' : Document_ID};  
+    return this.http.delete<any>(`https://localhost:44329/api/Documents/${Document_ID}`);
+  }
+
+  editDocumentByID(Document_ID: number, Category: string, Description: string, Tags: string){
+    return this.http.put<Document>(`https://localhost:44329/api/Documents/${Document_ID}`, {
+      "Document_ID": Document_ID,
+      "Category": Category,
+      "Description": Description,
+      "Tags": Tags,
+    })
+  }
+
   
 
  
 
-  getDocuments(): Observable<Document[]>{
-    return this.http.get<Document[]>('https://localhost:44370/api/Documents');
+  getDocuments(document_id: number): Observable<Document>{
+    return this.http.get<Document>(`https://localhost:44329/api/Documents/${document_id}`);
   }
 
   getDocumentsByID(): Observable<any[]>{

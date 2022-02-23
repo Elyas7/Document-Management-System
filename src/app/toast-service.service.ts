@@ -5,12 +5,13 @@ import { Injectable, TemplateRef } from '@angular/core';
 })
 export class ToastServiceService {
   toasts: any[]=[];
-  successoptions: any = {type:"Success", classname: 'bg-success text-light', delay:10000};
-  erroroptions: any = {type: "Error", classname: 'bg-danger text-light', delay: 10000 };
+  successoptions: any = { type:"Success",classname: 'bg-success text-light', delay: 10000};
+  erroroptions: any = { type:"Error",classname: 'bg-danger text-light', delay: 10000 };
   warningoptions: any = { type:"Warning",classname: 'bg-warning text-light', delay: 10000 };
+  
 
-  remove(toast: any){
-    this.toasts=this.toasts.filter(t=> t !==toast);
+  remove(toast) {
+    this.toasts = this.toasts.filter(t => t !== toast);
   }
   success(textOrTpl: string | TemplateRef<any>){
 

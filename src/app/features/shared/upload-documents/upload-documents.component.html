@@ -29,8 +29,8 @@
             <label>Tags</label>
           </div>
         </div>
-        <ng-container *ngIf="files.length!==0" >
-          <div class="files-list">
+        <ng-container  >
+          <div class="files-list" *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
 
             <div class="row row-style" >
               <div class="col-lg-3" >
@@ -66,13 +66,13 @@
                     </svg>
                   </div>
                   <div class="info">
-                    <h4 class="name"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
+                    <h4 class="name">
                       {{ files[i]?.name }}
                     </h4>
-                    <p class="size"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
+                    <p class="size" >
                       {{ formatBytes(files[i]?.size) }}
                     </p>
-                    <div style="width: 95%;"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
+                    <div style="width: 95%;" >
                       <app-pogress-bar [progress]="files[i]?.progress"></app-pogress-bar>
                     </div>
                   </div>
@@ -84,7 +84,7 @@
                         </svg>
                       </div> -->
 
-                  <div class="app-title-holder-action" style="margin-top: 15px;"  *ngFor="let dynamicControls of fileUploadform.get('dynamicItems')!['controls']; let i = index;">
+                  <div class="app-title-holder-action" style="margin-top: 15px;" >
                     <div class="title-btn-holder">
                       <div>
                         <button (click)="deleteFile(i)" class="btn-style"><i class="fas fa-trash-alt filter"></i>

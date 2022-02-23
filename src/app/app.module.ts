@@ -8,7 +8,6 @@ import {TreeViewModule} from '@progress/kendo-angular-treeview'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {SidebarModule} from '@syncfusion/ej2-angular-navigations';
 import { TopNavComponent } from './features/shared/top-nav/top-nav.component';
 import { SideBarComponent } from './features/shared/side-bar/side-bar.component';
 import { DocumentsComponent } from './features/views/documents/documents.component';
@@ -29,12 +28,11 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TagInputModule } from 'ngx-chips';
 import { DatePipe } from '@angular/common';
-import { UpdateDocumentsComponent } from './features/shared/update-documents/update-documents.component';
-import { ProgressBarComponent } from './features/shared/update-documents/progress-bar/progress-bar.component';
-import { DocumentSummaryBulkDownloadComponent } from './features/views/documents/document-summary-bulk-download/document-summary-bulk-download.component';
 import { CommonModule } from '@angular/common';  
 import { LabelModule } from "@progress/kendo-angular-label";
 import { InputsModule } from "@progress/kendo-angular-inputs";
+import { DragDropUploadComponent } from './features/shared/drag-drop-upload/drag-drop-upload.component';
+import { DragandDropDirective } from './features/views/documents/dragand-drop.directive';
 
 
 
@@ -50,9 +48,8 @@ import { InputsModule } from "@progress/kendo-angular-inputs";
     UploadDocumentsComponent,
     PogressBarComponent,
     FooterComponent,
-    UpdateDocumentsComponent,
-    ProgressBarComponent,
-    DocumentSummaryBulkDownloadComponent,
+    DragDropUploadComponent,
+    DragandDropDirective,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +59,6 @@ import { InputsModule } from "@progress/kendo-angular-inputs";
     NgxSpinnerModule,
     NgbModule,
     AppRoutingModule,
-    SidebarModule,
     TreeViewModule,
     DropDownsModule,
     MatIconModule,

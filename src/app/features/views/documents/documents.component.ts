@@ -21,13 +21,12 @@ import {DatePipe} from '@angular/common';
 import { Document } from 'src/app/document';
 import { BrowserModule } from '@angular/platform-browser'
 import { saveAs as importedSaveAs } from "file-saver"; 
-import {UpdateDocumentsComponent} from 'src/app/features/shared/update-documents/update-documents.component';
 import { Size } from '@progress/kendo-drawing/dist/npm/geometry';
 import { SelectionModel } from '@angular/cdk/collections';
-import {DocumentSummaryBulkDownloadComponent} from 'src/app/features/views/documents/document-summary-bulk-download/document-summary-bulk-download.component';
 import { Router } from '@angular/router';
 import { groupBy, GroupDescriptor } from "@progress/kendo-data-query";
 import { CommonModule } from '@angular/common';  
+import { DragDropUploadComponent } from '../../shared/drag-drop-upload/drag-drop-upload.component';
 declare var require:any
 const FileSaver=require('file-saver');
 
@@ -186,17 +185,7 @@ export class DocumentsComponent implements OnInit {
 
   }
 
-  getFile(files: FileList){
-    this.file= files.item(0);
-    const formData = new FormData();
-    formData.set('FileUpload', this.file);
-    this.spinner.show();
-    this.docService.AddFileDetails(formData).subscribe(result =>{
-      this.toastService.success("Document uploaded successfully");
-      this.spinner.hide();
-      window.location.reload();
-    });
-  }
+  
 
   checkAllCheckBox(ev: any){
     this.document.forEach(x => x.checked = ev.target.chceked)
@@ -394,24 +383,28 @@ export class DocumentsComponent implements OnInit {
 
 
   uploadDocument(){
-    const modalRef = this.modalService.open(UploadDocumentsComponent, {size: 'xl', backdrop: 'static'});
+    const modalRef = this.modalService.open(UploadDocumentsComponent, {size: 'xl', backdrop: 'static',});
     modalRef.componentInstance.TitleName = this.address;
-  }
-  upload(){
-    const modalRef1 = this.modalService.open(DocumentSummaryBulkDownloadComponent);
-    modalRef1.componentInstance.TitleName=this.address;
   }
   Document_ID!: number;
   Title!: string;
   Category!: string;
   Description!: string;
   Tags!: string;
+  files:any[]=[];
 
 
 
-  update(){
-    const modalRef = this.modalService.open(UpdateDocumentsComponent, {size: 'xl', backdrop: 'static'});
-    modalRef.componentInstance.resultText=this.resultText;
+  open(allFiles: File[]): void{
+    console.log('evt: ', allFiles);
+    
+    const filesAmount = allFiles.length;
+    for (let i=0; i< filesAmount; i++){
+      const file = allFiles[i];
+      this.files.push(file);
+      const modalRef = this.modalService.open(DragDropUploadComponent, {size: 'xl', backdrop: 'static'});
+      modalRef.componentInstance.files=this.files;
+    }
 
   }
 
@@ -503,92 +496,7 @@ export class DocumentsComponent implements OnInit {
       this.CategoryItems=data1;
     })
   }
-
-
-
-  isCollapsed: boolean = true;
-  div1:boolean=true;
-  div2:boolean=true;
-  div3:boolean=true;
-
-  div4:boolean=true;
-
-
-  isShowDiv=false;
-
-  isShowDisc=true;
-
-  isShowButton=true;
-
-  isShowDiscriptionButton=false;
-
-  displayVal='';
-
-
-  div1Function(){
-    this.div1=true;
-    this.div2=false;
-    this.div3=true;
-    this.div4=true;
-  }
-
-  div2Function(){
-    this.div2=true;
-    this.div1=false;
-    this.div3=false;
-    this.div4=false
-  }
-
-  div3Function(){
-    this.div3=true;
-    this.div2=false;
-    this.div1=false;
-  }
-
-
-
-
-  toggleClick(isCollapsed: boolean): void{
-    this.isCollapsed=isCollapsed;
-    
-  }
-
-  toggleDisplayDiv(){
-    this.isShowDiv=!this.isShowDiv;
-  }
-
-  toggleDisplayDisc(){
-    this.isShowDisc=!this.isShowDisc;
-  }
-
-  toggleDisplayButton(){
-    this.isShowButton=!this.isShowButton;
-  }
-
-  toggleDisplayDiscriptionButton(){
-    this.isShowDiscriptionButton=!this.isShowDiscriptionButton;
-  }
-
-
-  getValue(val:string){
-    this.displayVal=val
-  }
-
-
-  getFile1(files: FileList){
-    this.file= files.item(0);
-    const formData = new FormData();
-    formData.set('FileUpload', this.file);
-    this.spinner.show();
-    this.docService.AddFileDetails(formData).subscribe(result =>{
-      this.toastService.success("Document uploaded successfully");
-      this.spinner.hide();
-      window.location.reload();
-    });
-  }
-
-  
-  
+ 
 
   
 
